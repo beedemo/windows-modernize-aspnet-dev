@@ -45,7 +45,13 @@ pipeline {
         stage('View App') {
             agent none
             steps {
-                input(message: "Browse app at http://52.10.196.176?", ok: "Yes") 
+                input(message: "Review ASP.NET app and test Sign Up at http://52.10.196.176?", ok: "Yes") 
+            }
+        }
+        stage('Verify App Sign Up') {
+            agent { label 'windows-docker-static' }
+            steps {
+                powershell "docker container exec v2src_product-launch-db_1 powershell -Command \"Invoke-SqlCmd -Query 'SELECT * FROM Prospects' -Database ProductLaunch\""
             }
         }
     }
