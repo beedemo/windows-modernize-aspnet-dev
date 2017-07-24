@@ -51,7 +51,7 @@ pipeline {
         stage('Verify App Sign Up') {
             agent { label 'windows-docker-static' }
             steps {
-                powershell "docker container exec v2src_product-launch-db_1 powershell -Command \"Invoke-SqlCmd -Query 'SELECT * FROM Prospects' -Database ProductLaunch\""
+                powershell "docker container exec v1src_product-launch-db_1 powershell -Command \"Invoke-SqlCmd -Query 'SELECT * FROM Prospects' -Database ProductLaunch\""
             }
         }
     }
