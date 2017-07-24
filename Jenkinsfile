@@ -25,5 +25,13 @@ pipeline {
                 }
             }
         }
+        stage('Package ASP.NET App') {
+            agent { label 'windows-docker-static' }
+            steps {
+                dir('\\v1-src\\docker\\web') {
+                    powershell 'docker image build -t $env:DOCKER_HUB_USER/modernize-aspnet-web:v1 .'
+                }
+            }
+        }
     }
 }
