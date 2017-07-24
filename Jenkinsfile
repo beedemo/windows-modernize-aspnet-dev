@@ -15,7 +15,7 @@ pipeline {
             steps {
                 checkout scm
                 dir('\\v1-src\\docker\\builder') {
-                    powershell 'docker image build -t $DOCKER_HUB_USER}/modernize-aspnet-builder .'
+                    powershell 'docker image build -t ${DOCKER_HUB_USER}/modernize-aspnet-builder .'
                 }
             }
         }
