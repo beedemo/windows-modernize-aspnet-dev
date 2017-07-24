@@ -33,5 +33,27 @@ pipeline {
                 }
             }
         }
+        stage('Deploy ASP.NET App') {
+            agent { label 'windows-docker-static' }
+            steps {
+                dir('\\v1-src') {
+                    powershell 'docker-compose up -d'
+                    powershell 'docker container ls'
+                }
+            }
+        }
+        stage('View App') {
+            agent none
+            steps {
+                input(message: "Browse app at http://52.10.196.176?", ok: "Yes") 
+            }
+        }
+    }
+    post {
+        always {
+            dir('\\v1-src') {
+                powershell 'docker-compose down'
+            }
+        }
     }
 }
