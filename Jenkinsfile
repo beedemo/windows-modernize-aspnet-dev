@@ -51,8 +51,10 @@ pipeline {
     }
     post {
         always {
-            dir('\\v1-src') {
-                powershell 'docker-compose down'
+            node('windows-docker-static') {
+                dir('\\v1-src') {
+                    powershell 'docker-compose down'
+                }
             }
         }
     }
